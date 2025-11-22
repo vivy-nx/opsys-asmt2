@@ -1,3 +1,7 @@
+[resources]
+3
+[processes]
+5
 [available]
 3,2,2
 [allocation]

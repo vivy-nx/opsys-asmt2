@@ -1,7 +1,7 @@
 # opsys-asmt2
 Implementation of the Banker's algorithm for a given input file. Given some system state, determine if there is an order you can run the processes in that avoids deadlock. 
 # Compiling
-The program can be compiled with `gcc bankers.cpp -o bankers`. Other compilers probably work too.
+The program can be compiled with `g++ bankers.cpp -o bankers`. Other compilers probably work too.
 # Usage
 The program requires a plaintext input file that describes the system state and conditions under which to perform the Banker's algorithm.
 The first field describes initially allocatable resource instances. 
@@ -9,6 +9,10 @@ The second field describes the current resource allocation to our set of process
 The third field describes the maximum amount that you would need to allocate to the program.
 A sample is provided below, and in `sample_input.txt`. 
 ```
+[resources]
+3
+[processes]
+5
 [available]
 3,2,2
 [allocation]
