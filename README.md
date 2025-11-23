@@ -9,10 +9,6 @@ The second field describes the current resource allocation to our set of process
 The third field describes the maximum amount that you would need to allocate to the program.
 A sample is provided below, and in `sample_input.txt`. 
 ```
-[resources]
-3
-[processes]
-5
 [available]
 3,2,2
 [allocation]
