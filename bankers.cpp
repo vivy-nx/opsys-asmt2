@@ -40,10 +40,10 @@ int main(int argc, char *argv[]) {
         if (currentLine == "[available]") {
             mode = inpAvail;
         }
-        if (currentLine == "[allocation]") {
+        else if (currentLine == "[allocation]") {
             mode = inpAlloc;
         }
-        if (currentLine == "[max]") {
+        else if (currentLine == "[max]") {
             mode = inpMax;
         }
         else { //if not a modeset, then must be a data line. begin next operation
@@ -77,8 +77,52 @@ int main(int argc, char *argv[]) {
         }
         
     } while (file.good() && !file.eof());
-    std::cout << "Input read in successfully." << std::endl;
-    //print out data
+    //final validation checks
+    if (allocation.size() != max.size()) {
+        std::cout << "ERROR: Different processes between [allocation] and [max]. Please adjust your input file accordingly." << std::endl;
+        exit(0);
+    }
+    for (int i = 0; i < allocation.size(); ++i) {
+        if (allocation[i].size() != available.size()) {
+            std::cout << "ERROR: Different resources between [allocation] and [available]. Please adjust your input file accordingly." << std::endl;
+            exit(0);
+        }
+    }
+    for (int i = 0; i < max.size(); ++i) {
+        if (allocation[i].size() != available.size()) {
+            std::cout << "ERROR: Process in [allocation] has wrong number of resources compared to [available]. Please adjust your input file accordingly." << std::endl;
+            exit(0);
+        }
+    }
     
+    std::cout << "Input read in successfully." << std::endl << std::endl;
+    //print out data
+    std::cout << "INITIAL AVAILABLE RESOURCES: " << std::endl;
+    for (int i = 0; i < available.size(); ++i) {
+        std::cout << available[i] << ' ';
+    }
+    std::cout << std::endl << std::endl;
+
+    std::cout << "ALLOCATED RESOURCES: " << std::endl;
+    for (int i = 0; i < allocation.size(); ++i) {
+        std::cout << "p" << i+1 << ": ";
+        for (int j = 0; j < allocation[i].size(); ++j) {
+            std::cout << allocation[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+
+    std::cout << "MAX RESOURCE USAGE: " << std::endl;
+    for (int i = 0; i < max.size(); ++i) {
+        std::cout << "p" << i+1 << ": ";
+        for (int j = 0; j < max[i].size(); ++j) {
+            std::cout << max[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+
     //perform algorithm
+    std::cout << "Running Banker's algorithm on given input..." << std::endl;
 }
