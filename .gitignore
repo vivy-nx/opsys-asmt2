@@ -40,3 +40,5 @@
 # debug information files
 *.dwo
 .vscode/
+# how did i forget to put the executable in the gitignore until now.
+bankers

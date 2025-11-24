@@ -125,4 +125,65 @@ int main(int argc, char *argv[]) {
 
     //perform algorithm
     std::cout << "Running Banker's algorithm on given input..." << std::endl;
+    std::vector<std::vector<int>> need; 
+    std::vector<int> hasRun; //0 if hasn't run, 1 if has run.
+    std::vector<int> safeSequence;
+    for (int i = 0; i < allocation.size(); ++i) {
+        hasRun.push_back(0); //none have run at first.
+    }
+    //calculate need
+    for (int i = 0; i < allocation.size(); ++i) {
+        std::vector<int> process;
+        for (int j = 0; j < allocation[i].size(); ++j) {
+            process.push_back(max[i][j] - allocation[i][j]);
+        }
+        need.push_back(process);
+    }
+    std::cout << std::endl;
+    //loop: while processes still need to be added to safe sequence,
+    while (safeSequence.size() != allocation.size()) {
+        bool hasProgressed = false;
+        for (int i = 0; i < allocation.size(); ++i) { // for all processes
+            if (hasRun[i] == 0) { //that haven't run, 
+                //is this process's [need] less than or equal to [available]
+                bool needLesserEqualToAvailable = true;
+                for (int j = 0; j < available.size(); ++j) {
+                    if (need[i][j] > available[j]) { 
+                        needLesserEqualToAvailable = false;
+                        break;
+                    }
+                }
+                if (needLesserEqualToAvailable) { 
+                    hasRun[i] = 1;
+                    hasProgressed = true;
+                    safeSequence.push_back(i+1);
+                    //and then return its [allocation] to [available].
+                    for (int j = 0; j < available.size(); ++j) {
+                        available[j] += allocation[i][j];
+                    }
+                }
+            }
+        }
+        if (hasProgressed == false) { //if iterated over all processes and found no legal next steps then state is unsafe; abort
+            if (safeSequence.size() == 0) {
+                std::cout << "UNSAFE STATE: Could not find any valid candidates for safe sequence at all." << std::endl;
+            } 
+            else {
+                std::cout << "UNSAFE STATE: Could not find any valid candidates for safe sequence from this point forward." << std::endl;
+                std::cout << "Incomplete process sequence: ";
+                for (int i = 0; i < safeSequence.size(); ++i) {
+                    std::cout << safeSequence[i] << " ";
+                }
+                std::cout << std::endl;
+            }
+            exit(0); 
+        }
+    }
+    //if exited this while loop, then hasRun has entries for all 
+    std::cout << "SAFE STATE: A safe sequence containing all processes was found!" << std::endl;
+    std::cout << "Safe sequence: ";
+    for (int i = 0; i < safeSequence.size(); ++i) {
+        std::cout << safeSequence[i] << ' ';
+    }
+    std::cout << std::endl;
 }
