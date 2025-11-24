@@ -1,4 +1,4 @@
-# opsys-asmt2
+# Operating Systems Assignment 2
 Implementation of the Banker's algorithm for a given input file. Given some system state, determine if there is an order you can run the processes in that avoids deadlock. 
 # Compiling
 The program can be compiled with `g++ bankers.cpp -o bankers`. Other compilers probably work too.
@@ -52,4 +52,8 @@ If successful, it shows the path it took to run each process without running out
 ```
 SAFE STATE: A safe sequence containing all processes was found!
 Safe sequence: 4 5 2 3 1 
+```
+```
+UNSAFE STATE: Could not find any valid candidates for safe sequence from this point forward.
+Incomplete process sequence: 1 3 
 ```

@@ -1,0 +1,10 @@
+[available]
+3,6
+[allocation]
+0,1
+1,4
+0,2
+[max]
+4,2
+4,9
+2,4

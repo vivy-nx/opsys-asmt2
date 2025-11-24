@@ -3,7 +3,6 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "bankers.hpp"
 
 //these are named badly but were having some conflicts with simpler names so whatever
 enum inputMode { inpNull, inpAvail, inpAlloc, inpMax }; 
@@ -89,8 +88,8 @@ int main(int argc, char *argv[]) {
         }
     }
     for (int i = 0; i < max.size(); ++i) {
-        if (allocation[i].size() != available.size()) {
-            std::cout << "ERROR: Process in [allocation] has wrong number of resources compared to [available]. Please adjust your input file accordingly." << std::endl;
+        if (allocation[i].size() != max.size()) {
+            std::cout << "ERROR: Process in [allocation] has wrong number of resources compared to [max]. Please adjust your input file accordingly." << std::endl;
             exit(0);
         }
     }
